@@ -30,7 +30,46 @@
 <!-- We need to load axios first! -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
 <script>
+    function fetchChuckNorrisFactJSON() {
+        // const pokemonId = 1;
+        const url = `https://api.chucknorris.io/jokes/random`;
+        axios.get(url)
+            .then(function(response) {
+                return response.data; // SUBTLE difference with Fetch: response.data instead of response.json()
+            })
+            .then(function(fact) {
+                console.log('data decoded from JSON:', fact);
 
+                // Build a block of HTML
+                const factHtml = `
+        <img src="${fact.icon_url}" />
+        <p><strong>${fact.value}</strong></p>
+      `;
+                document.querySelector('#chuck-norris').innerHTML = factHtml;
+            });
+    }
+
+    fetchChuckNorrisFactJSON();
+
+    /*
+    function fetchChuckNorrisFactJSON() {
+        const username = 'defunkt';
+        const url = `https://api.github.com/users/${username}`;
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(profile) {
+                const profileHtml = `
+        <p><strong>${profile.name}</strong></p>
+        <img src="${profile.avatar_url}" />
+      `;
+                // TODO corriger toute la fonction au dessus de cette ligne
+                document.querySelector('#chuck-norris').innerHTML = profileHtml;
+            });
+    }
+
+    fetchChuckNorrisFactJSON(); */
 </script>
 </body>
 
